@@ -1,6 +1,17 @@
 import React from 'react'
+import { useContext } from 'react';
+import { userContext } from '../Home';
 
 const Modal = () => {
+
+    const {showmodal,setshowmodal} = useContext(userContext)
+    
+    const handlehidemodals = () =>{
+
+        console.log("running");
+        setshowmodal(false);
+    }
+
   return (
     <>
          <section className={`fixed transition-all duration-500 ease-in-out ${showmodal?'bottom-0 z-50':'bottom-[-500px]'} shadow-2xl w-full bg-white rounded-2xl flex flex-col gap-6 p-4`}>
