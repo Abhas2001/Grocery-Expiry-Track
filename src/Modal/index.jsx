@@ -1,16 +1,54 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
 import { userContext } from '../Home';
 
 const Modal = () => {
 
-    const {showmodal,setshowmodal} = useContext(userContext)
+    const {showmodal,setshowmodal,data,setdata} = useContext(userContext)
+    const[count,setcount] = useState(0);
+    const[itemname,setitemname] = useState('');
+    const[expdate,setexpdate] = useState('');
+   
     
     const handlehidemodals = () =>{
-
-        console.log("running");
+        setdata((prev)=>([...prev, {itemname:itemname,quantity:count,expdate:expdate}]))
         setshowmodal(false);
     }
+
+    
+  const handleshowmodal = () => {
+    setitemname('')
+    setcount(0)
+    setexpdate('')
+    setshowmodal(true);
+  };
+
+  const handleitemname = (val) =>{
+    setitemname(val);
+   
+    
+    console.log(val);
+  }
+
+  const handleexpdate = (val) =>{
+    setexpdate(val)
+
+
+  }
+
+  const handledisabled  = () =>{
+    if(itemname.length>0&&expdate.length>0&&count!==0){
+        return false
+    }
+    else{
+        return true
+    }
+  }
+
+
+  console.log(data);
 
   return (
     <>
@@ -21,23 +59,29 @@ const Modal = () => {
 </div>
 <div className='flex gap-1'>
     <span className='text-sm font-normal text-[#2E2E2E]'>Item Name:</span>
-    <input className='border-[1px] border-[#E0E0E0] rounded-2xl' type="text" />
+    <input value={itemname} onInput={(e)=>handleitemname(e.target.value)} className='border-[1px] border-[#E0E0E0] rounded-md' type="text" />
 </div>
 
-<div className='flex gap-1'>
+<div className='flex gap-3 items-center'>
     <span className='text-sm font-normal text-[#2E2E2E]'>Quantity:</span>
-    <input className='border-[1px] border-[#E0E0E0] rounded-2xl' type="text" />
+    <div className='flex gap-1'>
+        <button onClick={()=>setcount(count-1)}>-</button>
+       <div className='border-[1px] border-[#E0E0E0] px-2 text-[#2E2E2E]'>{count}</div>
+    <button onClick={()=>setcount(count+1)}>+</button>
+    </div>
+  
 </div>
 
-<div className='flex gap-1'>
+<div className='flex gap-1 items-center'>
     <span className='text-sm font-normal text-[#2E2E2E]'>Expiry Date:</span>
-    <input className='border-[1px] border-[#E0E0E0] rounded-2xl' type="text" />
+    <input value={expdate} onInput={(e)=>handleexpdate(e.target.value)} className='border-[1px] border-[#E0E0E0] rounded-md' type="text" />
+   
 </div>
 
 <div className='flex gap-4'>
 <button onClick={()=>handlehidemodals()} className='text-[#6E6E6E] text-sm '>Cancel</button>
 
-<button onClick={()=>handlehidemodals()} className='bg-[#28C76F] text-sm py-1 px-2 rounded-md'><span className='text-sm text-white'>Save</span></button>
+<button disabled={handledisabled()}  onClick={()=>handlehidemodals()} className='bg-[#28C76F] text-sm py-1 px-2 rounded-md disabled:opacity-40'><span className='text-sm text-white'>Save</span></button>
 </div>
 
 
@@ -47,6 +91,15 @@ const Modal = () => {
 <button onClick={()=>handlehidemodals()} className='text-[#28C76F] text-sm'></button>
 </div>
 </section>
+
+<section className="fixed bottom-0 w-full flex justify-center items-center">
+        <div
+          onClick={() => handleshowmodal()}
+          className="text-white bg-[#28C76F] rounded-full w-12 h-12 flex justify-center items-center font-medium"
+        >
+          <span className="text-xl">+</span>
+        </div>
+      </section>
     </>
   )
 }

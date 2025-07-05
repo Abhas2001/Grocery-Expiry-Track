@@ -15,29 +15,17 @@ import Modal from "../Modal";
 export const userContext = createContext();
 const Home = () => {
   const [showmodal, setshowmodal] = useState(false);
-
-  const handleshowmodal = () => {
-    setshowmodal(true);
-  };
+  const[data,setdata] = useState([{itemname:'',quantity:0,expdate:""}])
 
   return (
     <div className="w-full h-screen bg-[#F7F8FA]">
-      <userContext.Provider value={{ showmodal, setshowmodal }}>
+      <userContext.Provider value={{ showmodal, setshowmodal,data,setdata }}>
         <Header />
 
         <Items />
 
         <Modal />
       </userContext.Provider>
-
-      <section className="fixed bottom-0 w-full flex justify-center items-center">
-        <div
-          onClick={() => handleshowmodal()}
-          className="text-white bg-[#28C76F] rounded-full w-12 h-12 flex justify-center items-center font-medium"
-        >
-          <span className="text-xl">+</span>
-        </div>
-      </section>
     </div>
   );
 };
