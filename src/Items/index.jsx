@@ -7,11 +7,14 @@ import { userContext } from '../Home';
 
 const Items = () => {
     const{data} = useContext(userContext);
-    console.log(data,"datahaibeta");
+
+    const result = data.filter((x)=>x.itemname.length>0)
+    console.log(result,"datahaibeta");
   return (
  <>
+ {result.length>0?
    <section className='w-full flex flex-col justify-center items-center p-6 gap-2 overflow-y-auto overflow-x-hidden'>
-    { data.map((x)=>(
+    { result.map((x)=>(
 
   
       <section className='w-full shadow-[0_2px_10px_rgba(0,0,0,0.05)] border-[1px] border-[#E0E0E0] p-4 flex flex-col rounded-xl '>
@@ -30,6 +33,19 @@ const Items = () => {
         ))
 }
       </section>
+      :
+      <section className='w-full h-screen flex flex-col justify-center items-center p-0'>
+        <span>
+       No items yet
+       </span>
+       <br />
+       <span>
+
+        
+Add your first grocery item using the ➕ button below!
+       </span>
+      </section>
+}
  </>
   )
 }
