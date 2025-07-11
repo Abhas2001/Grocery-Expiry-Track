@@ -6,10 +6,24 @@ import { useContext } from 'react';
 import { userContext } from '../Home';
 
 const Items = () => {
-    const{data} = useContext(userContext);
+    const{data,setdeletesuccess} = useContext(userContext);
 
     const result = data?.filter((x)=>x.itemname?.length>0)
     console.log(data,"datahaibeta");
+
+    const handledelete = async(val) =>{
+
+      const response = await fetch(`https://gross-backend.onrender.com/delete?id=${val}`,{
+        method:'DELETE',
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+   const message = await response.json()
+     if(message.message=="Item deleted successfully!"){
+      setdeletesuccess(true);
+    }
+  }
   return (
  <>
  {data.length>0?
@@ -27,7 +41,7 @@ const Items = () => {
 </span>
 
             <span><img className='w-6 h-6' src={edit} alt="" /></span>
-            <span><img className='w-6 h-6' src={deleteicon} alt="" /></span>
+            <span onClick={()=>handledelete(x._id)}><img className='w-6 h-6' src={deleteicon} alt="" /></span>
         </div>
       </section>
         ))

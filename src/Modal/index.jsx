@@ -6,11 +6,16 @@ import { userContext } from '../Home';
 
 const Modal = () => {
 
-    const {showmodal,setshowmodal,data,setdata} = useContext(userContext)
+    const {showmodal,setshowmodal,data,setdata,searchdata,deletesucess} = useContext(userContext)
     const[count,setcount] = useState(0);
     const[itemname,setitemname] = useState('');
     const[expdate,setexpdate] = useState('');
    
+    console.log(searchdata,"searchdata");
+    
+   
+
+    const api = 'https://gross-backend.onrender.com/save';
     
     const handlehidemodals = async() =>{
         // setdata((prev)=>([...prev, {itemname:itemname,quantity:count,expdate:expdate}]))
@@ -63,8 +68,8 @@ const Modal = () => {
   }
 
 const getdata = async() =>{
-  await fetch('https://gross-backend.onrender.com/getdata')
-  .then((res)=>res.json())      
+  await fetch(`https://gross-backend.onrender.com/getdata?search=${searchdata}`)
+      .then((res)=>res.json())      
   .then((data)=>{
     setdata(data);
     console.log(data);
@@ -77,7 +82,7 @@ useEffect(()=>{
   getdata();
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-},[showmodal])
+},[showmodal,searchdata,deletesucess])
 
   return (
     <>

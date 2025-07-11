@@ -16,10 +16,12 @@ export const userContext = createContext();
 const Home = () => {
   const [showmodal, setshowmodal] = useState(false);
   const[data,setdata] = useState([{itemname:'',quantity:0,expdate:""}])
+  const[searchdata,setsearchdata] = useState('')
+  const[deletesucess,setdeletesuccess] = useState(false);
 
   return (
     <div className="w-full h-screen bg-[#F7F8FA]">
-      <userContext.Provider value={{ showmodal, setshowmodal,data,setdata }}>
+      <userContext.Provider value={{ showmodal, setshowmodal,data,setdata,setsearchdata,searchdata,deletesucess,setdeletesuccess }}>
         <Header />
           
         <Items />
