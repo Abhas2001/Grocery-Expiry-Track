@@ -12,8 +12,23 @@ const Modal = () => {
     const[expdate,setexpdate] = useState('');
    
     
-    const handlehidemodals = () =>{
-        setdata((prev)=>([...prev, {itemname:itemname,quantity:count,expdate:expdate}]))
+    const handlehidemodals = async() =>{
+        // setdata((prev)=>([...prev, {itemname:itemname,quantity:count,expdate:expdate}]))
+         const response = await fetch('https://gross-backend.onrender.com/save',{
+             method:'POST',
+              headers:{
+                  'Content-Type':'application/json'
+              },    
+
+              body:JSON.stringify({
+                  itemName:itemname,
+                  Quantity:count,
+                  ExpiryDate:expdate              
+         })
+        })
+        const dataS = await response.json();
+        console.log(dataS);
+
         setshowmodal(false);
     }
 
@@ -47,8 +62,22 @@ const Modal = () => {
     }
   }
 
+const getdata = async() =>{
+  await fetch('https://gross-backend.onrender.com/getdata')
+  .then((res)=>res.json())      
+  .then((data)=>{
+    setdata(data);
+    console.log(data);
+  })
+}
 
-  console.log(data);
+useEffect(()=>{
+  if(!showmodal){
+   
+  getdata();
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+},[showmodal])
 
   return (
     <>
@@ -61,7 +90,7 @@ const Modal = () => {
     <span className='text-sm font-normal text-[#2E2E2E]'>Item Name:</span>
     <input value={itemname} onInput={(e)=>handleitemname(e.target.value)} className='border-[1px] border-[#E0E0E0] rounded-md' type="text" />
 </div>
-// Create a responsive navbar using React
+
 
 
 
