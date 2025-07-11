@@ -61,6 +61,10 @@ const Modal = () => {
     <span className='text-sm font-normal text-[#2E2E2E]'>Item Name:</span>
     <input value={itemname} onInput={(e)=>handleitemname(e.target.value)} className='border-[1px] border-[#E0E0E0] rounded-md' type="text" />
 </div>
+// Create a responsive navbar using React
+
+
+
 
 <div className='flex gap-3 items-center'>
     <span className='text-sm font-normal text-[#2E2E2E]'>Quantity:</span>

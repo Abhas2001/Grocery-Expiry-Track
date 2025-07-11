@@ -21,7 +21,7 @@ const Home = () => {
     <div className="w-full h-screen bg-[#F7F8FA]">
       <userContext.Provider value={{ showmodal, setshowmodal,data,setdata }}>
         <Header />
-
+          
         <Items />
 
         <Modal />

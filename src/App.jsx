@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Splittxt from './Components/Splittxt'
 import Home from './Home/index'
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
   
-   <Home/>
+   <Splittxt/>
     </>
   )
 }
