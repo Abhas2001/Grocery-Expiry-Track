@@ -18,11 +18,12 @@ const Home = () => {
   const[data,setdata] = useState([{itemname:'',quantity:0,expdate:""}])
   const[searchdata,setsearchdata] = useState('')
   const[deletesucess,setdeletesuccess] = useState(false);
+  const[editdata,seteditdata] = useState([]);
   const[loader,setloader] = useState(false);
 
   return (
     <div className="w-full h-screen bg-[#F7F8FA]">
-      <userContext.Provider value={{ showmodal, setshowmodal,data,setdata,setsearchdata,searchdata,deletesucess,setdeletesuccess,loader,setloader }}>
+      <userContext.Provider value={{ showmodal, setshowmodal,data,setdata,setsearchdata,searchdata,deletesucess,setdeletesuccess,loader,setloader,editdata,seteditdata }}>
         <Header />
           
         <Items />

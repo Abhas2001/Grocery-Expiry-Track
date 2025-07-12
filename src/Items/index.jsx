@@ -6,11 +6,19 @@ import { useContext } from 'react';
 import { userContext } from '../Home';
 
 const Items = () => {
-    const{data,setdeletesuccess,loader} = useContext(userContext);
+    const{data,setdeletesuccess,loader,setshowmodal,editdata,seteditdata} = useContext(userContext);
 
     const result = data?.filter((x)=>x.itemname?.length>0)
     console.log(data,"datahaibeta");
 
+    const handleedit = async(val) =>{
+      const response = await fetch(`https://gross-backend.onrender.com/edit?id=${val}`)
+      const data = await response.json();
+      seteditdata(data);
+      setshowmodal(true)
+    }
+
+    console.log(editdata.itemName,"editdata");
     const handledelete = async(val) =>{
 
       const response = await fetch(`https://gross-backend.onrender.com/delete?id=${val}`,{
@@ -48,7 +56,7 @@ const Items = () => {
   5 Days Left
 </span>
 
-            <span><img className='w-6 h-6' src={edit} alt="" /></span>
+            <span onClick={()=>handleedit(x._id)}><img className='w-6 h-6' src={edit} alt="" /></span>
             <span onClick={()=>handledelete(x._id)}><img className='w-6 h-6' src={deleteicon} alt="" /></span>
         </div>
       </section>
