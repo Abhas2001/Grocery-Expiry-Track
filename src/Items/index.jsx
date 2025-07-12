@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { userContext } from '../Home';
 
 const Items = () => {
-    const{data,setdeletesuccess} = useContext(userContext);
+    const{data,setdeletesuccess,loader} = useContext(userContext);
 
     const result = data?.filter((x)=>x.itemname?.length>0)
     console.log(data,"datahaibeta");
@@ -26,6 +26,14 @@ const Items = () => {
   }
   return (
  <>
+ {loader?
+ <section className='w-full h-screen flex justify-center items-center relative bottom-24'>
+ <div >
+  <img className='w-12 h-12' src={'https://static.wixstatic.com/media/68315b_30dbad1140034a3da3c59278654e1655~mv2.gif'} />
+ </div>
+ </section>
+ :
+ <div>
  {data.length>0?
    <section className='w-full flex flex-col justify-center items-center p-6 gap-2 overflow-y-auto overflow-x-hidden'>
     { data.map((x)=>(
@@ -59,6 +67,8 @@ const Items = () => {
 Add your first grocery item using the ➕ button below!
        </span>
       </section>
+}
+</div>
 }
  </>
   )

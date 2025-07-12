@@ -6,7 +6,7 @@ import { userContext } from '../Home';
 
 const Modal = () => {
 
-    const {showmodal,setshowmodal,data,setdata,searchdata,deletesucess} = useContext(userContext)
+    const {showmodal,setshowmodal,data,setdata,searchdata,deletesucess,setloader} = useContext(userContext)
     const[count,setcount] = useState(0);
     const[itemname,setitemname] = useState('');
     const[expdate,setexpdate] = useState('');
@@ -68,11 +68,13 @@ const Modal = () => {
   }
 
 const getdata = async() =>{
+  setloader(true);
+  
   await fetch(`https://gross-backend.onrender.com/getdata?search=${searchdata}`)
       .then((res)=>res.json())      
   .then((data)=>{
     setdata(data);
-    console.log(data);
+     setloader(false);
   })
 }
 
@@ -130,7 +132,7 @@ useEffect(()=>{
 </div>
 </section>
 
-<section className="fixed bottom-0 w-full flex justify-center items-center">
+<section className="fixed bottom-6 w-full flex justify-center items-center">
         <div
           onClick={() => handleshowmodal()}
           className="text-white bg-[#28C76F] rounded-full w-12 h-12 flex justify-center items-center font-medium"
