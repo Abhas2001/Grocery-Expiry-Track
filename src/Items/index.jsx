@@ -27,7 +27,7 @@ const Items = () => {
   return (
  <>
  {loader?
- <section className='w-full h-screen flex justify-center items-center relative bottom-24'>
+ <section className='w-full h-screen flex justify-center items-center relative bottom-60'>
  <div >
   <img className='w-12 h-12' src={'https://static.wixstatic.com/media/68315b_30dbad1140034a3da3c59278654e1655~mv2.gif'} />
  </div>
